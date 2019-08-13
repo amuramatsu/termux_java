@@ -106,6 +106,12 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libpthread-2.29.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
+	    "usr/lib/libresolv-2.29.so",
+	    "usr/lib/libresolv.so.2",
+	    "usr/lib/libresolv.so",
+	    "usr/lib/libnss_files-2.29.so",
+	    "usr/lib/libnss_files.so.2",
+	    "usr/lib/libnss_files.so",
 	],
 	"gcc-libs-8.3.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
@@ -114,6 +120,16 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libz.so.1.2.11",
 	    "usr/lib/libz.so.1",
 	    "usr/lib/libz.so",
+	],
+	"libidn2-2.2.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libidn2.so.0.3.6",
+	    "usr/lib/libidn2.so.0",
+	    "usr/lib/libidn2.so",
+	],
+	"libunistring-0.9.10-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libunistring.so.2.1.0",
+	    "usr/lib/libunistring.so.2",
+	    "usr/lib/libunistring.so",
 	],
 	"expat-2.2.7-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libexpat.so.1.6.9",
@@ -124,12 +140,45 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
+	    "usr/lib/libmount.so.1.1.0",
+	    "usr/lib/libmount.so.1",
+	    "usr/lib/libmount.so",
+	    "usr/lib/libblkid.so.1.1.0",
+	    "usr/lib/libblkid.so.1",
+	    "usr/lib/libblkid.so",
+	],
+	"libffi-3.2.1-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libffi.so.6.0.4",
+	    "usr/lib/libffi.so.6",
+	    "usr/lib/libffi.so",
+	],
+	"glib2-2.60.6-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6000.6",
+	    "usr/lib/libglib-2.0.so.0",
+	    "usr/lib/libglib-2.0.so",
+	    "usr/lib/libgio-2.0.so.0.6000.6",
+	    "usr/lib/libgio-2.0.so.0",
+	    "usr/lib/libgio-2.0.so",
+	    "usr/lib/libgmodule-2.0.so.0.6000.6",
+	    "usr/lib/libgmodule-2.0.so.0",
+	    "usr/lib/libgmodule-2.0.so",
+	    "usr/lib/libgobject-2.0.so.0.6000.6",
+	    "usr/lib/libgobject-2.0.so.0",
+	    "usr/lib/libgobject-2.0.so",
+	],
+	"file-5.37-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libmagic.so.1.0.0",
+	    "usr/lib/libmagic.so.1",
+	    "usr/lib/libmagic.so",
 	],
 	"extra,fontconfig-2:2.13.1+12+g5f5ec56-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
 	],
+	# "libgconf-2.so.4" is needed for get proxy settings, but it pulls
+	#    dbus, dbus-glib, systemd-libs, and many libs.
+	# "libgnomevfs-2.so.0" is also needed, but not exist on archlinux
 	);
 }
 elsif ($ARCH eq "aarch64") {
@@ -153,6 +202,12 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libpthread-2.29.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
+	    "usr/lib/libresolv-2.29.so",
+	    "usr/lib/libresolv.so.2",
+	    "usr/lib/libresolv.so",
+	    "usr/lib/libnss_files-2.29.so",
+	    "usr/lib/libnss_files.so.2",
+	    "usr/lib/libnss_files.so",
 	],
 	"gcc-libs-8.3.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
@@ -161,6 +216,16 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libz.so.1.2.11",
 	    "usr/lib/libz.so.1",
 	    "usr/lib/libz.so",
+	],
+	"libidn2-2.2.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libidn2.so.0.3.6",
+	    "usr/lib/libidn2.so.0",
+	    "usr/lib/libidn2.so",
+	],
+	"libunistring-0.9.10-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libunistring.so.2.1.0",
+	    "usr/lib/libunistring.so.2",
+	    "usr/lib/libunistring.so",
 	],
 	"expat-2.2.7-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libexpat.so.1.6.9",
@@ -171,12 +236,45 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
+	    "usr/lib/libmount.so.1.1.0",
+	    "usr/lib/libmount.so.1",
+	    "usr/lib/libmount.so",
+	    "usr/lib/libblkid.so.1.1.0",
+	    "usr/lib/libblkid.so.1",
+	    "usr/lib/libblkid.so",
+	],
+	"libffi-3.2.1-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libffi.so.6.0.4",
+	    "usr/lib/libffi.so.6",
+	    "usr/lib/libffi.so",
+	],
+	"glib2-2.60.6-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6000.6",
+	    "usr/lib/libglib-2.0.so.0",
+	    "usr/lib/libglib-2.0.so",
+	    "usr/lib/libgio-2.0.so.0.6000.6",
+	    "usr/lib/libgio-2.0.so.0",
+	    "usr/lib/libgio-2.0.so",
+	    "usr/lib/libgmodule-2.0.so.0.6000.6",
+	    "usr/lib/libgmodule-2.0.so.0",
+	    "usr/lib/libgmodule-2.0.so",
+	    "usr/lib/libgobject-2.0.so.0.6000.6",
+	    "usr/lib/libgobject-2.0.so.0",
+	    "usr/lib/libgobject-2.0.so",
+	],
+	"file-5.37-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libmagic.so.1.0.0",
+	    "usr/lib/libmagic.so.1",
+	    "usr/lib/libmagic.so",
 	],
 	"extra,fontconfig-2:2.13.1+12+g5f5ec56-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
 	],
+	# "libgconf-2.so.4" is needed for get proxy settings, but it pulls
+	#    dbus, dbus-glib, systemd-libs, and many libs.
+	# "libgnomevfs-2.so.0" is also needed, but not exist on archlinux
 	);
 }
 else {
@@ -201,6 +299,12 @@ else {
 	    "usr/lib/libpthread-2.29.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
+	    "usr/lib/libresolv-2.29.so",
+	    "usr/lib/libresolv.so.2",
+	    "usr/lib/libresolv.so",
+	    "usr/lib/libnss_files-2.29.so",
+	    "usr/lib/libnss_files.so.2",
+	    "usr/lib/libnss_files.so",
 	],
 	"gcc-libs-9.1.0-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
@@ -209,6 +313,16 @@ else {
 	    "usr/lib/libz.so.1.2.11",
 	    "usr/lib/libz.so.1",
 	    "usr/lib/libz.so",
+	],
+	"libidn2-2.2.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libidn2.so.0.3.6",
+	    "usr/lib/libidn2.so.0",
+	    "usr/lib/libidn2.so",
+	],
+	"libunistring-0.9.10-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libunistring.so.2.1.0",
+	    "usr/lib/libunistring.so.2",
+	    "usr/lib/libunistring.so",
 	],
 	"expat-2.2.7-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libexpat.so.1.6.9",
@@ -219,12 +333,45 @@ else {
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
+	    "usr/lib/libmount.so.1.1.0",
+	    "usr/lib/libmount.so.1",
+	    "usr/lib/libmount.so",
+	    "usr/lib/libblkid.so.1.1.0",
+	    "usr/lib/libblkid.so.1",
+	    "usr/lib/libblkid.so",
+	],
+	"libffi-3.2.1-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libffi.so.6.0.4",
+	    "usr/lib/libffi.so.6",
+	    "usr/lib/libffi.so",
+	],
+	"glib2-2.60.6-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6000.6",
+	    "usr/lib/libglib-2.0.so.0",
+	    "usr/lib/libglib-2.0.so",
+	    "usr/lib/libgio-2.0.so.0.6000.6",
+	    "usr/lib/libgio-2.0.so.0",
+	    "usr/lib/libgio-2.0.so",
+	    "usr/lib/libgmodule-2.0.so.0.6000.6",
+	    "usr/lib/libgmodule-2.0.so.0",
+	    "usr/lib/libgmodule-2.0.so",
+	    "usr/lib/libgobject-2.0.so.0.6000.6",
+	    "usr/lib/libgobject-2.0.so.0",
+	    "usr/lib/libgobject-2.0.so",
+	],
+	"file-5.37-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libmagic.so.1.0.0",
+	    "usr/lib/libmagic.so.1",
+	    "usr/lib/libmagic.so",
 	],
 	"extra,fontconfig-2:2.13.1+12+g5f5ec56-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
 	],
+	# "libgconf-2.so.4" is needed for get proxy settings, but it pulls
+	#    dbus, dbus-glib, systemd-libs, and many libs.
+	# "libgnomevfs-2.so.0" is also needed, but not exist on archlinux
 	);
 }
 
