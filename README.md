@@ -60,7 +60,7 @@ archive to android-termux and install.
 
 * NetBSD 8,1-STABLE
 
-## JDK Distribution
+### JDK Distribution
 
 * [AdoptOpenJDK](https://adoptopenjdk.net) 8u222-b10
 
