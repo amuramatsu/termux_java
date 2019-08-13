@@ -1,0 +1,161 @@
+# Version
+version=1
+
+# Component Font Mappings
+
+dialog.plain.latin-1=Roboto
+dialog.plain.japanese-x0208=Noto Sans CJK JP
+dialog.plain.korean=Noto Sans CJK KR
+dialog.plain.chinese-big5=Noto Sans CJK TC
+dialog.plain.chinese-gb18030=Noto Sans CJK SC
+
+dialog.bold.latin-1=Roboto Bold
+dialog.bold.japanese-x0208=Noto Sans CJK JP
+dialog.bold.korean=Noto Sans CJK KR
+dialog.bold.chinese-big5=Noto Sans CJK TC
+dialog.bold.chinese-gb18030=Noto Sans CJK SC
+
+dialog.italic.latin-1=Roboto Italic
+dialog.italic.japanese-x0208=Noto Sans CJK JP
+dialog.italic.korean=Noto Sans CJK KR
+dialog.italic.chinese-big5=Noto Sans CJK TC
+dialog.italic.chinese-gb18030=Noto Sans CJK SC
+
+dialog.bolditalic.latin-1=Roboto Bold Italic
+dialog.bolditalic.japanese-x0208=Noto Sans CJK JP
+dialog.bolditalic.korean=Noto Sans CJK KR
+dialog.bolditalic.chinese-big5=Noto Sans CJK TC
+dialog.bolditalic.chinese-gb18030=Noto Sans CJK SC
+
+sansserif.plain.latin-1=Roboto
+sansserif.plain.japanese-x0208=Noto Sans CJK JP
+sansserif.plain.korean=Noto Sans CJK KR
+sansserif.plain.chinese-big5=Noto Sans CJK TC
+sansserif.plain.chinese-gb18030=Noto Sans CJK SC
+
+sansserif.bold.latin-1=Roboto Bold
+sansserif.bold.japanese-x0208=Noto Sans CJK JP
+sansserif.bold.korean=Noto Sans CJK KR
+sansserif.bold.chinese-big5=Noto Sans CJK TC
+sansserif.bold.chinese-gb18030=Noto Sans CJK SC
+
+sansserif.italic.latin-1=Roboto Italic
+sansserif.italic.japanese-x0208=Noto Sans CJK JP
+sansserif.italic.korean=Noto Sans CJK KR
+sansserif.italic.chinese-big5=Noto Sans CJK TC
+sansserif.italic.chinese-gb18030=Noto Sans CJK SC
+
+sansserif.bolditalic.latin-1=Roboto Bold Italic
+sansserif.bolditalic.japanese-x0208=Noto Sans CJK JP
+sansserif.bolditalic.korean=Noto Sans CJK KR
+sansserif.bolditalic.chinese-big5=Noto Sans CJK TC
+sansserif.bolditalic.chinese-gb18030=Noto Sans CJK SC
+
+
+serif.plain.latin-1=Noto Serif
+serif.plain.japanese-x0208=Noto Sans CJK JP
+serif.plain.korean=Noto Sans CJK KR
+serif.plain.chinese-big5=Noto Sans CJK TC
+serif.plain.chinese-gb18030=Noto Sans CJK SC
+
+serif.bold.latin-1=Noto Serif Bold
+serif.bold.japanese-x0208=Noto Sans CJK JP
+serif.bold.korean=Noto Sans CJK KR
+serif.bold.chinese-big5=Noto Sans CJK TC
+serif.bold.chinese-gb18030=Noto Sans CJK SC
+
+serif.italic.latin-1=Noto Serif Italic
+serif.italic.japanese-x0208=Noto Sans CJK JP
+serif.italic.korean=Noto Sans CJK KR
+serif.italic.chinese-big5=Noto Sans CJK TC
+serif.italic.chinese-gb18030=Noto Sans CJK SC
+
+serif.bolditalic.latin-1=Noto Serif Bold Italic
+serif.bolditalic.japanese-x0208=Noto Sans CJK JP
+serif.bolditalic.korean=Noto Sans CJK KR
+serif.bolditalic.chinese-big5=Noto Sans CJK TC
+serif.bolditalic.chinese-gb18030=Noto Sans CJK SC
+
+
+monospaced.plain.latin-1=Droid Sans Mono
+monospaced.plain.japanese-x0208=Noto Sans Mono CJK JP
+monospaced.plain.korean=Noto Sans Mono CJK KR
+monospaced.plain.chinese-big5=Noto Sans Mono CJK TC
+monospaced.plain.chinese-gb18030=Noto Sans Mono CJK SC
+
+monospaced.bold.latin-1=Droid Sans Mono
+monospaced.bold.japanese-x0208=Noto Sans Mono CJK JP
+monospaced.bold.korean=Noto Sans Mono CJK KR
+monospaced.bold.chinese-big5=Noto Sans Mono CJK TC
+monospaced.bold.chinese-gb18030=Noto Sans Mono CJK SC
+
+monospaced.italic.latin-1=Droid Sans Mono
+monospaced.italic.japanese-x0208=Noto Sans Mono CJK JP
+monospaced.italic.korean=Noto Sans Mono CJK KR
+monospaced.italic.chinese-big5=Noto Sans Mono CJK TC
+monospaced.italic.chinese-gb18030=Noto Sans Mono CJK SC
+
+monospaced.bolditalic.latin-1=Droid Sans Mono
+monospaced.bolditalic.japanese-x0208=Noto Sans Mono CJK JP
+monospaced.bolditalic.korean=Noto Sans Mono CJK KR
+monospaced.bolditalic.chinese-big5=Noto Sans Mono CJK TC
+monospaced.bolditalic.chinese-gb18030=Noto Sans Mono CJK SC
+
+
+dialoginput.plain.latin-1=Droid Sans Mono
+dialoginput.plain.japanese-x0208=Noto Sans Mono CJK JP
+dialoginput.plain.korean=Noto Sans Mono CJK KR
+dialoginput.plain.chinese-big5=Noto Sans Mono CJK TC
+dialoginput.plain.chinese-gb18030=Noto Sans Mono CJK SC
+
+dialoginput.bold.latin-1=Droid Sans Mono
+dialoginput.bold.japanese-x0208=Noto Sans Mono CJK JP
+dialoginput.bold.korean=Noto Sans Mono CJK KR
+dialoginput.bold.chinese-big5=Noto Sans Mono CJK TC
+dialoginput.bold.chinese-gb18030=Noto Sans Mono CJK SC
+
+dialoginput.italic.latin-1=Droid Sans Mono
+dialoginput.italic.japanese-x0208=Noto Sans Mono CJK JP
+dialoginput.italic.korean=Noto Sans Mono CJK kR
+dialoginput.italic.chinese-big5=Noto Sans Mono CJK TC
+dialoginput.italic.chinese-gb18030=Noto Sans Mono CJK SC
+
+dialoginput.bolditalic.latin-1=Droid Sans Mono
+dialoginput.bolditalic.japanese-x0208=Noto Sans Mono CJK JP
+dialoginput.bolditalic.korean=Noto Sans Mono CJK KR
+dialoginput.bolditalic.chinese-big5=Noto Sans Mono CJK TC
+dialoginput.bolditalic.chinese-gb18030=Noto Sans Mono CJK SC
+
+# Search Sequences
+
+sequence.allfonts=latin-1
+sequence.allfonts.Big5=chinese-big5,latin-1
+sequence.allfonts.x-euc-jp-bsd=japanese-x0208,latin-1
+sequence.allfonts.EUC-KR=korean,latin-1
+sequence.allfonts.GB18030=chinese-gb18030,latin-1
+sequence.fallback=chinese-big5,chinese-gb18030,japanese-x0208,korean
+
+# Font File Names
+appendfontpath=/system/fonts:/data/data/com.termux/files/usr/share/fonts/TTF
+
+filename.Droid_Sans_Mono=/system/fonts/DroidSansMono.ttf
+
+filename.Roboto=/system/fonts/Roboto-Regular.ttf
+filename.Roboto_Italic=/system/fonts/Roboto-Italic.ttf
+filename.Roboto_Bold=/system/fonts/Roboto-Bold.ttf
+filename.Roboto_Bold_Italic=/system/fonts/Roboto-BoldItalic.ttf
+
+filename.Noto_Serif=/system/fonts/NotoSerif-Regular.ttf
+filename.Noto_Serif_Italic=/system/fonts/NotoSerif-Italic.ttf
+filename.Noto_Serif_Bold=/system/fonts/NotoSerif-Bold.ttf
+filename.Noto_Serif_Bold_Italic=/system/fonts/NotoSerif-BoldItalic.ttf
+
+filename.Noto_Sans_CJK_JP=/system/fonts/NotoSansCJK-Regular.ttc
+filename.Noto_Sans_CJK_KR=/system/fonts/NotoSansCJK-Regular.ttc
+filename.Noto_Sans_CJK_SC=/system/fonts/NotoSansCJK-Regular.ttc
+filename.Noto_Sans_CJK_TC=/system/fonts/NotoSansCJK-Regular.ttc
+
+filename.Noto_Sans_Mono_CJK_JP=/system/fonts/NotoSansCJK-Regular.ttc
+filename.Noto_Sans_Mono_CJK_KR=/system/fonts/NotoSansCJK-Regular.ttc
+filename.Noto_Sans_Mono_CJK_SC=/system/fonts/NotoSansCJK-Regular.ttc
+filename.Noto_Sans_Mono_CJK_TC=/system/fonts/NotoSansCJK-Regular.ttc

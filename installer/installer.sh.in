@@ -1,0 +1,17 @@
+#! /data/data/com.termux/files/usr/bin/sh
+JVMDIR=@DESTDIR@
+TARFILE="${JVMDIR}.tar"
+
+curdir="$(dirname "$0")"
+archive="${curdir}/${TARFILE}"
+tar xf "$archive" -C "${PREFIX}/share"
+cd "${PREFIX}/bin"
+for f in "../share/${JVMDIR}/scripts/"*; do
+    ln -sf "$f" .
+done
+if [ ! -d "${HOME}/.config/fontconfig" ]; then
+    if [ -d "${PREFIX}/etc/fonts" ]; then
+	[ -d  "${HOME}/.config" ] || mkdir -p "${HOME}/.config"
+	(cd "${HOME}/.config" && ln -s "${PREFIX}/etc/fonts" fontconfig)
+    fi
+fi

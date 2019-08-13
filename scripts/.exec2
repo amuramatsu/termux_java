@@ -1,0 +1,8 @@
+#! /data/data/com.termux/files/usr/bin/sh
+LD_PRELOAD=; export LD_PRELOAD
+JVMDIR=$PREFIX/share/@DESTDIR@
+exec "${JVMDIR}/bin/${0##*/}" \
+    -J-Djava.awt.headless=true \
+    "-J-Djava.io.tmpdir=${PREFIX}/tmp" \
+    "-J-Duser.home=${HOME}" \
+    "$@"
