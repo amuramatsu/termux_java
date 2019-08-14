@@ -15,11 +15,9 @@ https://github.com/Hax4us/java .
 
 ## Limitations
 
-### Network is not work correctly.
+### GUI is not supported
 
-Java (and libc at archlinux) use `/etc/resolv.conf` for DNS
-settings, but termux on android doesn't have it. Java programs
-cannot connect network peers by hostnames.
+Supporting GUI requires too many libraries.
 
 ## How to use
 
@@ -81,6 +79,8 @@ archive to android-termux and install.
 
 * [PlantUML](http://plantuml.com) 2019.8
 * [pdftk-java](https://gitlab.com/pdftk-java/pdftk)
+* [sbt](https://www.scala-sbt.org) 1.2.8 (not completed)
+* [Gradle](https://gradle.org) 5.5.1 (not completed)
 
 ## Acknoledgements
 
@@ -89,3 +89,4 @@ archive to android-termux and install.
 * [MasterDevX/Termux-java](https://github.com/MasterDevX/Termux-Java)
 * [AdoptOpenJDK](https://adoptopenjdk.net)
 * [LibericaJDK](https://bell-sw.com/java)
+* [PRoot for termux](https://github.com/termux/proot)
