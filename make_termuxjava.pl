@@ -112,6 +112,9 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libnss_files-2.29.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
+	    "usr/lib/libnss_dns-2.29.so",
+	    "usr/lib/libnss_dns.so.2",
+	    "usr/lib/libnss_dns.so",
 	],
 	"gcc-libs-8.3.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
@@ -208,6 +211,9 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libnss_files-2.29.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
+	    "usr/lib/libnss_dns-2.29.so",
+	    "usr/lib/libnss_dns.so.2",
+	    "usr/lib/libnss_dns.so",
 	],
 	"gcc-libs-8.3.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
@@ -305,6 +311,9 @@ else {
 	    "usr/lib/libnss_files-2.29.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
+	    "usr/lib/libnss_dns-2.29.so",
+	    "usr/lib/libnss_dns.so.2",
+	    "usr/lib/libnss_dns.so",
 	],
 	"gcc-libs-9.1.0-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
