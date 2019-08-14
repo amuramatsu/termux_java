@@ -9,9 +9,8 @@ cd "${PREFIX}/bin"
 for f in "../share/${JVMDIR}/scripts/"*; do
     ln -sf "$f" .
 done
-if [ ! -d "${HOME}/.config/fontconfig" ]; then
-    if [ -d "${PREFIX}/etc/fonts" ]; then
-	[ -d  "${HOME}/.config" ] || mkdir -p "${HOME}/.config"
-	(cd "${HOME}/.config" && ln -s "${PREFIX}/etc/fonts" fontconfig)
-    fi
+
+# proot command is needed
+if type proot >/dev/null 2>&1; then
+    pkg install -y proot
 fi

@@ -1,7 +1,7 @@
 #! /data/data/com.termux/files/usr/bin/sh
-LD_PRELOAD=; export LD_PRELOAD
 JVMDIR=$PREFIX/share/@DESTDIR@
-exec "${JVMDIR}/bin/${0##*/}" \
+exec proot -b "${PREFIX}/etc:/etc" -b "${JVMDIR}/solib:/usr/lib/tls" \
+    env LD_PRELOAD= "${JVMDIR}/bin/${0##*/}" \
     -Djava.awt.headless=true \
     "-Djava.io.tmpdir=${PREFIX}/tmp" \
     "-Duser.home=${HOME}" \
