@@ -13,6 +13,14 @@ This project is inspired from
 https://github.com/MasterDevX/Termux-Java and
 https://github.com/Hax4us/java .
 
+## Limitations
+
+### Network is not work correctly.
+
+Java (and libc at archlinux) use `/etc/resolv.conf` for DNS
+settings, but termux on android doesn't have it. Java programs
+cannot connect network peers by hostnames.
+
 ## How to use
 
 ### Requirements
@@ -71,7 +79,8 @@ archive to android-termux and install.
 
 ### Tested Java applications
 
-* [PlantUML](http://plantuml.com) 2019.4
+* [PlantUML](http://plantuml.com) 2019.8
+* [pdftk-java](https://gitlab.com/pdftk-java/pdftk)
 
 ## Acknoledgements
 
