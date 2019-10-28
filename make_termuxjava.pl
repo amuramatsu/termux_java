@@ -23,7 +23,7 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-my $FULL_VERSION = "8u222-b10";
+my $FULL_VERSION = "8u232-b09";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
