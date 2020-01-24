@@ -3,7 +3,7 @@
 # Usage: make_termuxjava.pl [-a arch] [-v version] [-d openjdk_distribution]
 #
 #      -a arch          architecture of JDK [aarch64 (default), arm, armv7]
-#      -v version       version of JDK [8u222-b10 (default)]
+#      -v version       version of JDK [8u242-b08 (default)]
 #      -d distribution  which distribution are used [adopt (default), liberica]
 #
 # This scripts need follow commands
@@ -23,7 +23,8 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-my $FULL_VERSION = "8u232-b09";
+#my $FULL_VERSION = "8u242-b08";
+my $FULL_VERSION = "11.0.6+10";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
@@ -45,27 +46,42 @@ elsif ($ARCH eq "arm" || $ARCH eq "armv6") {
 # parse version number
 #  FULL_VERSION 8u222-b10
 #     VERSION -> 8u222
+#     PATCH_VERSION -> 222
 #     MAJOR_VERSION -> 8
-#  FULL_VERSION 11.0.4+11.2
+#  FULL_VERSION 11.0.4+12
 #     VERSION -> 11.0.4
 #     MAJOR_VERSION -> 11
+#     PATCH_VERSION -> 4
 sub parse_version {
     my ($FULL_VER) = @_;
     my $VERSION = $FULL_VER;
     $VERSION =~ s/-b\d+$//;
+    $VERSION =~ s/\+\d+$//;
     my $MAJOR_VERSION = $VERSION;
     $MAJOR_VERSION =~ s/[^0-9].*$//;
-    return ($VERSION, $MAJOR_VERSION);
+    my $PATCH_VERSION;
+    if ($VERSION =~ /u(\d+)$/) {
+	$PATCH_VERSION = $1;
+    }
+    elsif ($VERSION =~ /\.0\.(\d+)$/) {
+	$PATCH_VERSION = $1;
+    }
+    return ($VERSION, $MAJOR_VERSION, $PATCH_VERSION);
 }
-my ($VERSION, $MAJOR_VERSION) = parse_version($FULL_VERSION);
+my ($VERSION, $MAJOR_VERSION, $PATCH_VERSION) = parse_version($FULL_VERSION);
 my $DESTDIR = "jdk${MAJOR_VERSION}";
 
 my ($JDK_ARCHIVE, $JDK_REPO);
 if ($DISTRIBUTION =~ /^liberica\s*(jdk)?$/i) {
     $DISTRIBUTION = "LibericaJDK";
+    my $DLVERSION = $FULL_VERSION;
+    if ($MAJOR_VERSION == 8 && $PATCH_VERSION < 242 ||
+	$MAJOR_VERSION == 11 && $PATCH_VERSION < 6) {
+	my $DLVERSION = $VERSION;
+    }
     $FULL_VERSION = $VERSION;
-    $JDK_ARCHIVE = "bellsoft-jdk${VERSION}-linux-${JDK_ARCH}.tar.gz";
-    $JDK_REPO = "https://download.bell-sw.com/java/${VERSION}";
+    $JDK_ARCHIVE = "bellsoft-jdk${DLVERSION}-linux-${JDK_ARCH}.tar.gz";
+    $JDK_REPO = "https://download.bell-sw.com/java/${DLVERSION}";
 }
 elsif ($DISTRIBUTION =~ /^adopt\s?(openjdk)?$/i) {
     $DISTRIBUTION = "AdoptOpenJDK";
@@ -73,7 +89,12 @@ elsif ($DISTRIBUTION =~ /^adopt\s?(openjdk)?$/i) {
     $archive_version =~ s/-//g;
     $archive_version =~ s/\+/_/g;
     $JDK_ARCHIVE = "OpenJDK${MAJOR_VERSION}U-jdk_${JDK_ARCH}_linux_hotspot_${archive_version}.tar.gz";
-    $JDK_REPO = "https://github.com/AdoptOpenJDK/openjdk${MAJOR_VERSION}-binaries/releases/download/jdk${FULL_VERSION}";
+    if ($MAJOR_VERSION == 8) {
+        $JDK_REPO = "https://github.com/AdoptOpenJDK/openjdk${MAJOR_VERSION}-binaries/releases/download/jdk${FULL_VERSION}";
+    }
+    else {
+        $JDK_REPO = "https://github.com/AdoptOpenJDK/openjdk${MAJOR_VERSION}-binaries/releases/download/jdk-${FULL_VERSION}";
+    }
 }
 else {
     die "JDK distribution '$DISTRIBUTION' is not supported yet";
@@ -86,60 +107,60 @@ my (%SOLIBS, $ARCH_REPO_CORE, $ARCH_REPO_EXTRA, @INTERPRETER_NAMES);
 if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
     @INTERPRETER_NAMES = ("ld-linux-armhf.so.3",
 			  "ld-linux.so.3",
-			  "ld-2.29.so");
+			  "ld-2.30.so");
     $ARCH_REPO_CORE = "http://mirror.archlinuxarm.org/${ARCH}/core/";
     $ARCH_REPO_EXTRA = "http://mirror.archlinuxarm.org/${ARCH}/extra/";
     %SOLIBS = (
-	"glibc-2.29-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.29.so",
-	    "usr/lib/libc-2.29.so",
+	"glibc-2.30-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.30.so",
+	    "usr/lib/libc-2.30.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.29.so",
+	    "usr/lib/libdl-2.30.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.29.so",
+	    "usr/lib/libm-2.30.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.29.so",
+	    "usr/lib/librt-2.30.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.29.so",
+	    "usr/lib/libpthread-2.30.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.29.so",
+	    "usr/lib/libresolv-2.30.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.29.so",
+	    "usr/lib/libnss_files-2.30.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.29.so",
+	    "usr/lib/libnss_dns-2.30.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-8.3.0-1-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-9.2.0-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
-	"zlib-1:1.2.11-3-${ARCH}.pkg.tar.xz" => [
+	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libz.so.1.2.11",
 	    "usr/lib/libz.so.1",
 	    "usr/lib/libz.so",
 	],
-	"libidn2-2.2.0-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libidn2.so.0.3.6",
+	"libidn2-2.3.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libidn2.so.0.3.7",
 	    "usr/lib/libidn2.so.0",
 	    "usr/lib/libidn2.so",
 	],
-	"libunistring-0.9.10-1-${ARCH}.pkg.tar.xz" => [
+	"libunistring-0.9.10-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libunistring.so.2.1.0",
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.7-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.9",
+	"expat-2.2.9-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.6.11",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.34-3-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -150,31 +171,31 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.2.1-3-${ARCH}.pkg.tar.xz" => [
+	"libffi-3.2.1-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libffi.so.6.0.4",
 	    "usr/lib/libffi.so.6",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.60.6-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6000.6",
+	"glib2-2.62.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6200.4",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6000.6",
+	    "usr/lib/libgio-2.0.so.0.6200.4",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6000.6",
+	    "usr/lib/libgmodule-2.0.so.0.6200.4",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6000.6",
+	    "usr/lib/libgobject-2.0.so.0.6200.4",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.37-2-${ARCH}.pkg.tar.xz" => [
+	"file-5.38-1.1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.1+12+g5f5ec56-1-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.91+24+g75eadca-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -185,60 +206,60 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	);
 }
 elsif ($ARCH eq "aarch64") {
-    @INTERPRETER_NAMES = ("ld-linux-aarch64.so.1", "ld-2.29.so");
+    @INTERPRETER_NAMES = ("ld-linux-aarch64.so.1", "ld-2.30.so");
     $ARCH_REPO_CORE = "http://mirror.archlinuxarm.org/${ARCH}/core/";
     $ARCH_REPO_EXTRA = "http://mirror.archlinuxarm.org/${ARCH}/extra/";
     %SOLIBS = (
-	"glibc-2.29-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.29.so",
-	    "usr/lib/libc-2.29.so",
+	"glibc-2.30-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.30.so",
+	    "usr/lib/libc-2.30.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.29.so",
+	    "usr/lib/libdl-2.30.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.29.so",
+	    "usr/lib/libm-2.30.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.29.so",
+	    "usr/lib/librt-2.30.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.29.so",
+	    "usr/lib/libpthread-2.30.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.29.so",
+	    "usr/lib/libresolv-2.30.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.29.so",
+	    "usr/lib/libnss_files-2.30.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.29.so",
+	    "usr/lib/libnss_dns-2.30.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-8.3.0-1-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-9.2.0-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
-	"zlib-1:1.2.11-3-${ARCH}.pkg.tar.xz" => [
+	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libz.so.1.2.11",
 	    "usr/lib/libz.so.1",
 	    "usr/lib/libz.so",
 	],
-	"libidn2-2.2.0-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libidn2.so.0.3.6",
+	"libidn2-2.3.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libidn2.so.0.3.7",
 	    "usr/lib/libidn2.so.0",
 	    "usr/lib/libidn2.so",
 	],
-	"libunistring-0.9.10-1-${ARCH}.pkg.tar.xz" => [
+	"libunistring-0.9.10-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libunistring.so.2.1.0",
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.7-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.9",
+	"expat-2.2.9-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.6.11",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.34-3-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -249,31 +270,31 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.2.1-3-${ARCH}.pkg.tar.xz" => [
+	"libffi-3.2.1-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libffi.so.6.0.4",
 	    "usr/lib/libffi.so.6",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.60.6-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6000.6",
+	"glib2-2.62.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6200.4",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6000.6",
+	    "usr/lib/libgio-2.0.so.0.6200.4",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6000.6",
+	    "usr/lib/libgmodule-2.0.so.0.6200.4",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6000.6",
+	    "usr/lib/libgobject-2.0.so.0.6200.4",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.37-2-${ARCH}.pkg.tar.xz" => [
+	"file-5.38-1.1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.1+12+g5f5ec56-1-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.91+24+g75eadca-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -284,61 +305,61 @@ elsif ($ARCH eq "aarch64") {
 	);
 }
 else {
-    @INTERPRETER_NAMES = ("ld-linux-${ARCH}.so.1", "ld-2.29.so");
+    @INTERPRETER_NAMES = ("ld-linux-${ARCH}.so.1", "ld-2.30.so");
     $ARCH_REPO_CORE = "https://mex.mirror.pkgbuild.com/core/os/${ARCH}/";
     $ARCH_REPO_EXTRA = "https://mex.mirror.pkgbuild.com/extra/os/${ARCH}/";
     %SOLIBS = (
-	"glibc-2.29-4-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.29.so",
+	"glibc-2.30-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.30.so",
 	    "usr/lib/ld-linux-${LINUX_ARCH}.so.1",
-	    "usr/lib/libc-2.29.so",
+	    "usr/lib/libc-2.30.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.29.so",
+	    "usr/lib/libdl-2.30.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.29.so",
+	    "usr/lib/libm-2.30.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.29.so",
+	    "usr/lib/librt-2.30.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.29.so",
+	    "usr/lib/libpthread-2.30.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.29.so",
+	    "usr/lib/libresolv-2.30.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.29.so",
+	    "usr/lib/libnss_files-2.30.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.29.so",
+	    "usr/lib/libnss_dns-2.30.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-9.1.0-2-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-9.2.0-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
-	"zlib-1:1.2.11-3-${ARCH}.pkg.tar.xz" => [
+	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libz.so.1.2.11",
 	    "usr/lib/libz.so.1",
 	    "usr/lib/libz.so",
 	],
-	"libidn2-2.2.0-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libidn2.so.0.3.6",
+	"libidn2-2.3.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libidn2.so.0.3.7",
 	    "usr/lib/libidn2.so.0",
 	    "usr/lib/libidn2.so",
 	],
-	"libunistring-0.9.10-1-${ARCH}.pkg.tar.xz" => [
+	"libunistring-0.9.10-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libunistring.so.2.1.0",
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.7-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.9",
+	"expat-2.2.9-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.6.11",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.34-3-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -349,31 +370,31 @@ else {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.2.1-3-${ARCH}.pkg.tar.xz" => [
+	"libffi-3.2.1-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libffi.so.6.0.4",
 	    "usr/lib/libffi.so.6",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.60.6-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6000.6",
+	"glib2-2.62.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6200.4",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6000.6",
+	    "usr/lib/libgio-2.0.so.0.6200.4",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6000.6",
+	    "usr/lib/libgmodule-2.0.so.0.6200.4",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6000.6",
+	    "usr/lib/libgobject-2.0.so.0.6200.4",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.37-2-${ARCH}.pkg.tar.xz" => [
+	"file-5.38-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.1+12+g5f5ec56-1-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.91+24+g75eadca-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -391,20 +412,27 @@ my $TERMUX_PREFIX = $ENV{PREFIX} || "/data/data/com.termux/files/usr";
 my $JVM_PREFIX = "${TERMUX_PREFIX}/share/${DESTDIR}";
 my $SOLIB_DIR = "${JVM_PREFIX}/solib";
 my $INTERPRETER = "${SOLIB_DIR}/$INTERPRETER_NAMES[0]";
-my @RPATH_JDK = ("${JVM_PREFIX}/lib/${ARCH}/jli",
-		 "${JVM_PREFIX}/lib/${ARCH}",
+my @RPATH_JDK = ("${JVM_PREFIX}/lib/jli",
+		 "${JVM_PREFIX}/lib/server",
+		 "${JVM_PREFIX}/lib",
 		 "${SOLIB_DIR}",
 		 "${TERMUX_PREFIX}/lib",
 		 "/system/lib");
-my @RPATH_JRE = ("${JVM_PREFIX}/jre/lib/${ARCH}/jli",
-		 "${JVM_PREFIX}/jre/lib/${ARCH}",
-		 "${SOLIB_DIR}",
-		 "${TERMUX_PREFIX}/lib",
-		 "/system/lib");
+my @RPATH_JDK8 = ("${JVM_PREFIX}/lib/${ARCH}/jli",
+		  "${JVM_PREFIX}/lib/${ARCH}",
+		  "${SOLIB_DIR}",
+		  "${TERMUX_PREFIX}/lib",
+		  "/system/lib");
+my @RPATH_JRE8 = ("${JVM_PREFIX}/jre/lib/${ARCH}/jli",
+		  "${JVM_PREFIX}/jre/lib/${ARCH}",
+		  "${SOLIB_DIR}",
+		  "${TERMUX_PREFIX}/lib",
+		  "/system/lib");
 
 sub download {
     my ($url, $dest) = @_;
     $url =~ s/([^-:_.\/0-9a-zA-Z])/"%".uc(unpack("H2",$1))/eg;
+    $url =~ s/\+/%2B/g;
     if ($dest) {
 	system("curl $CURL_OPTS -L -o '$dest' '$url'") eq 0
 	    or die "DOWNLOAD FAIlD from $url";
@@ -445,13 +473,21 @@ if (! -r $JDK_ARCHIVE) {
 print "extract JDK ...";
 system("gzcat '$JDK_ARCHIVE'|tar xf - -C '$WORK' >/dev/null 2>&1") eq 0
     or die "extracting $JDK_ARCHIVE is failed";
-rename "${WORK}/jdk${FULL_VERSION}" => "${WORK}/${DESTDIR}"
-    or die "JDK stracture is wrong";
-unlink "${WORK}/${DESTDIR}/src.zip";
-rmtree "${WORK}/${DESTDIR}/demo";
-rmtree "${WORK}/${DESTDIR}/sample";
-print " DONE\n";
+if ($MAJOR_VERSION == 8) {
+    rename "${WORK}/jdk${FULL_VERSION}" => "${WORK}/${DESTDIR}"
+        or die "JDK stracture is wrong";
 
+    unlink "${WORK}/${DESTDIR}/src.zip";
+    rmtree "${WORK}/${DESTDIR}/sample";
+}
+else {
+    rename "${WORK}/jdk-${FULL_VERSION}" => "${WORK}/${DESTDIR}"
+        or die "JDK stracture is wrong";
+
+    unlink "${WORK}/${DESTDIR}/lib/src.zip";
+}
+rmtree "${WORK}/${DESTDIR}/demo";
+print " DONE\n";
 print "add solibs from arch linux ...";
 mkdir "${WORK}/${DESTDIR}/solib";
 for (keys %SOLIBS) {
@@ -498,21 +534,37 @@ chdir $curdir;
 print " DONE\n";
 
 print "patch to JDK ...";
-for (glob("${WORK}/${DESTDIR}/bin/*")) {
-    next if (/\.cgi$/);
-    system("patchelf --set-rpath '" . join(":", @RPATH_JDK) .
-	   "' --set-interpreter '$INTERPRETER' '$_'") eq 0
-	or die "patch to $_ is faied";
+if ($MAJOR_VERSION == 8) {
+    for (glob("${WORK}/${DESTDIR}/bin/*")) {
+	next if (/\.cgi$/);
+	system("patchelf --set-rpath '" . join(":", @RPATH_JDK8) .
+	       "' --set-interpreter '$INTERPRETER' '$_'") eq 0
+	    or die "patch to $_ is faied";
+    }
+    for (glob("${WORK}/${DESTDIR}/jre/bin/*")) {
+	system("patchelf --set-rpath '" . join(":", @RPATH_JRE8) .
+	       "' --set-interpreter '$INTERPRETER' '$_'") eq 0
+	    or die "patch to $_ is faied";
+    }
+    for (glob("${WORK}/${DESTDIR}/jre/lib/${JDK_ARCH}/*.so*"),
+	 glob("${WORK}/${DESTDIR}/jre/lib/${JDK_ARCH}/*/*.so*")) {
+	system("patchelf --set-rpath '" . join(":", @RPATH_JRE8) . "' '$_'") eq 0
+	    or die "patch to $_ is faied";
+    }
 }
-for (glob("${WORK}/${DESTDIR}/jre/bin/*")) {
-    system("patchelf --set-rpath '" . join(":", @RPATH_JRE) .
-	   "' --set-interpreter '$INTERPRETER' '$_'") eq 0
-	or die "patch to $_ is faied";
-}
-for (glob("${WORK}/${DESTDIR}/jre/lib/${JDK_ARCH}/*.so*"),
-     glob("${WORK}/${DESTDIR}/jre/lib/${JDK_ARCH}/*/*.so*")) {
-    system("patchelf --set-rpath '" . join(":", @RPATH_JRE) . "' '$_'") eq 0
-	or die "patch to $_ is faied";
+else {
+    for (glob("${WORK}/${DESTDIR}/bin/*"),
+	 glob("${WORK}/${DESTDIR}/lib/{jexec,jspawnhelper}")) {
+	next if (/\.cgi$/);
+	system("patchelf --set-rpath '" . join(":", @RPATH_JDK) .
+	       "' --set-interpreter '$INTERPRETER' '$_'") eq 0
+	    or die "patch to $_ is faied";
+    }
+    for (glob("${WORK}/${DESTDIR}/lib/*.so*"),
+	 glob("${WORK}/${DESTDIR}/lib/*/*.so*")) {
+	system("patchelf --set-rpath '" . join(":", @RPATH_JDK) . "' '$_'") eq 0
+	    or die "patch to $_ is faied";
+    }
 }
 print " DONE\n";
 
@@ -526,6 +578,9 @@ for (glob "scripts/*") {
 for (glob "${WORK}/${DESTDIR}/scripts/*") {
     chmod 0777, $_;
 }
+if ($MAJOR_VERSION == 8) {
+    unlink "${WORK}/${DESTDIR}/scripts/jshell";
+}
 copy 'installer/uninstaller.sh', "${WORK}/${DESTDIR}"
     or die "copy uninstaller.sh is failed";
 chmod 0777, "${WORK}/${DESTDIR}/uninstaller.sh";
@@ -535,16 +590,30 @@ copy_with_patch('installer/installer.sh.in', "${WORK}/installer.sh",
 chmod 0777, "${WORK}/installer.sh";
 
 print "copy fonts\n";
-for (glob "fontconfig.properties.*") {
-    copy $_, "${WORK}/${DESTDIR}/jre/lib"
-	or die "copy $_ is failed";
+if ($MAJOR_VERSION == 8) {
+    for (glob "fontconfig.properties.*") {
+	copy $_, "${WORK}/${DESTDIR}/jre/lib"
+	    or die "copy $_ is failed";
+    }
+    mkdir "${WORK}/${DESTDIR}/jre/lib/fonts";
+    for (glob "fonts/*") {
+	copy $_, "${WORK}/${DESTDIR}/jre/lib/fonts"
+	    or die "copy $_ is failed";
+    }
+    chdir "${WORK}/${DESTDIR}/jre/lib";
 }
-mkdir "${WORK}/${DESTDIR}/jre/lib/fonts";
-for (glob "fonts/*") {
-    copy $_, "${WORK}/${DESTDIR}/jre/lib/fonts"
-	or die "copy $_ is failed";
+else {
+    mkdir "${WORK}/${DESTDIR}/conf/fonts";
+    for (glob "fontconfig.properties.*") {
+	copy $_, "${WORK}/${DESTDIR}/conf/fonts"
+	    or die "copy $_ is failed";
+    }
+    for (glob "fonts/*") {
+	copy $_, "${WORK}/${DESTDIR}/conf/fonts"
+	    or die "copy $_ is failed";
+    }
+    chdir "${WORK}/${DESTDIR}/conf/fonts";
 }
-chdir "${WORK}/${DESTDIR}/jre/lib";
 symlink "fontconfig.properties.android6", "fontconfig.properties";
 chdir $curdir;
 

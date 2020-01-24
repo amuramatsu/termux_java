@@ -39,9 +39,9 @@ $ ./make_termuxjava.pl [-a arch] [-d distribution] [-v version]
 * **arch** is supported only `aarch64` (default), `armv7` and `armv6`.
 
 * **distribution** is selected form adopt (AdoptOpenJDK) or
-  liberica (LibericaJDK)
+  liberica (LibericaJDK). AdoptOpenJDK is recommended.
   
-* **version** is version of JDK. I tested only 8u222-b10.
+* **version** is version of JDK. I tested only 8u242-b08.
 
 You get `termuxjava-jdk?-{version}-{distribution}-{arch}.tar.gz.
 This archive contains install script and Java system. Copy the
@@ -64,23 +64,23 @@ archive to android-termux and install.
 
 ### Build
 
-* NetBSD 8,1-STABLE
+* NetBSD 8,1-STABLE (amd64)
 
 ### JDK Distribution
 
-* [AdoptOpenJDK](https://adoptopenjdk.net) 8u222-b10
+* [AdoptOpenJDK](https://adoptopenjdk.net) 8u242-b08
 
 ### Running environment
 
-* termux 0.7.3 on [Planet Computers](https://planetcom.squarespace.com)
-  Gemini PDA (Android 7.1.1, aarch64)
+* termux 0.88 on [Planet Computers](https://www.www3.planetcom.co.uk)
+  Cosmo Communicator (Android 9, aarch64)
 
 ### Tested Java applications
 
-* [PlantUML](http://plantuml.com) 2019.8
+* [PlantUML](http://plantuml.com) 2019.12
 * [pdftk-java](https://gitlab.com/pdftk-java/pdftk)
-* [sbt](https://www.scala-sbt.org) 1.2.8 (not completed)
-* [Gradle](https://gradle.org) 5.5.1 (not completed)
+* [sbt](https://www.scala-sbt.org) 1.3.7
+* [Gradle](https://gradle.org) 6.1
 
 ## Acknoledgements
 
