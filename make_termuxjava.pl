@@ -23,8 +23,8 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-#my $FULL_VERSION = "8u242-b08";
-my $FULL_VERSION = "11.0.6+10";
+my $FULL_VERSION = "8u242-b08";
+#my $FULL_VERSION = "11.0.6+10";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
@@ -86,7 +86,8 @@ if ($DISTRIBUTION =~ /^liberica\s*(jdk)?$/i) {
 elsif ($DISTRIBUTION =~ /^adopt\s?(openjdk)?$/i) {
     $DISTRIBUTION = "AdoptOpenJDK";
     my $archive_version = $FULL_VERSION;
-    $archive_version =~ s/-//g;
+    $archive_version =~ s/-//g if $MAJOR_VERSION == 8 && $PATCH_VERSION < 242;
+    $archive_version = "jdk${archive_version}" if $MAJOR_VERSION == 8 && $PATCH_VERSION >= 242;
     $archive_version =~ s/\+/_/g;
     $JDK_ARCHIVE = "OpenJDK${MAJOR_VERSION}U-jdk_${JDK_ARCH}_linux_hotspot_${archive_version}.tar.gz";
     if ($MAJOR_VERSION == 8) {

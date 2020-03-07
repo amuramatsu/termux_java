@@ -70,6 +70,9 @@ archive to android-termux and install.
 
 * [AdoptOpenJDK](https://adoptopenjdk.net) 8u242-b08
 
+  AdoptOpenJDK 11, and [LibericaJDK 8/11](https://bellsw-com/java) is
+  also work basic functions, except for font handling.
+
 ### Running environment
 
 * termux 0.88 on [Planet Computers](https://www.www3.planetcom.co.uk)
@@ -77,10 +80,10 @@ archive to android-termux and install.
 
 ### Tested Java applications
 
-* [PlantUML](http://plantuml.com) 2019.12
+* [PlantUML](http://plantuml.com) 2019.12 (AdoptOpenJDK 8 only)
 * [pdftk-java](https://gitlab.com/pdftk-java/pdftk)
-* [sbt](https://www.scala-sbt.org) 1.3.7
-* [Gradle](https://gradle.org) 6.1
+* [sbt](https://www.scala-sbt.org) 1.3.8
+* [Gradle](https://gradle.org) 6.2.1
 
 ## Acknoledgements
 
