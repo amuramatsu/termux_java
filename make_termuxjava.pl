@@ -23,8 +23,8 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-my $FULL_VERSION = "8u242-b08";
-#my $FULL_VERSION = "11.0.6+10";
+my $FULL_VERSION = "8u252-b09";
+#my $FULL_VERSION = "11.0.7+10";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
@@ -86,8 +86,8 @@ if ($DISTRIBUTION =~ /^liberica\s*(jdk)?$/i) {
 elsif ($DISTRIBUTION =~ /^adopt\s?(openjdk)?$/i) {
     $DISTRIBUTION = "AdoptOpenJDK";
     my $archive_version = $FULL_VERSION;
-    $archive_version =~ s/-//g if $MAJOR_VERSION == 8 && $PATCH_VERSION < 242;
-    $archive_version = "jdk${archive_version}" if $MAJOR_VERSION == 8 && $PATCH_VERSION >= 242;
+    $archive_version =~ s/-//g if $MAJOR_VERSION == 8 && $PATCH_VERSION != 242;
+    $archive_version = "jdk${archive_version}" if $MAJOR_VERSION == 8 && $PATCH_VERSION == 242;
     $archive_version =~ s/\+/_/g;
     $JDK_ARCHIVE = "OpenJDK${MAJOR_VERSION}U-jdk_${JDK_ARCH}_linux_hotspot_${archive_version}.tar.gz";
     if ($MAJOR_VERSION == 8) {
@@ -108,37 +108,37 @@ my (%SOLIBS, $ARCH_REPO_CORE, $ARCH_REPO_EXTRA, @INTERPRETER_NAMES);
 if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
     @INTERPRETER_NAMES = ("ld-linux-armhf.so.3",
 			  "ld-linux.so.3",
-			  "ld-2.30.so");
+			  "ld-2.31.so");
     $ARCH_REPO_CORE = "http://mirror.archlinuxarm.org/${ARCH}/core/";
     $ARCH_REPO_EXTRA = "http://mirror.archlinuxarm.org/${ARCH}/extra/";
     %SOLIBS = (
-	"glibc-2.30-3-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.30.so",
-	    "usr/lib/libc-2.30.so",
+	"glibc-2.31-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.31.so",
+	    "usr/lib/libc-2.31.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.30.so",
+	    "usr/lib/libdl-2.31.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.30.so",
+	    "usr/lib/libm-2.31.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.30.so",
+	    "usr/lib/librt-2.31.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.30.so",
+	    "usr/lib/libpthread-2.31.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.30.so",
+	    "usr/lib/libresolv-2.31.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.30.so",
+	    "usr/lib/libnss_files-2.31.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.30.so",
+	    "usr/lib/libnss_dns-2.31.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-9.2.0-4-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-9.3.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
 	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
@@ -161,7 +161,7 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35-1-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35.1-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -172,26 +172,26 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.2.1-4-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libffi.so.6.0.4",
-	    "usr/lib/libffi.so.6",
+	"libffi-3.3-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libffi.so.7.1.0",
+	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.62.4-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6200.4",
+	"glib2-2.64.2-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6400.2",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6200.4",
+	    "usr/lib/libgio-2.0.so.0.6400.2",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6200.4",
+	    "usr/lib/libgmodule-2.0.so.0.6400.2",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6200.4",
+	    "usr/lib/libgobject-2.0.so.0.6400.2",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.38-1.1-${ARCH}.pkg.tar.xz" => [
+	"file-5.38-3-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
@@ -207,37 +207,37 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	);
 }
 elsif ($ARCH eq "aarch64") {
-    @INTERPRETER_NAMES = ("ld-linux-aarch64.so.1", "ld-2.30.so");
+    @INTERPRETER_NAMES = ("ld-linux-aarch64.so.1", "ld-2.31.so");
     $ARCH_REPO_CORE = "http://mirror.archlinuxarm.org/${ARCH}/core/";
     $ARCH_REPO_EXTRA = "http://mirror.archlinuxarm.org/${ARCH}/extra/";
     %SOLIBS = (
-	"glibc-2.30-3-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.30.so",
-	    "usr/lib/libc-2.30.so",
+	"glibc-2.31-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.31.so",
+	    "usr/lib/libc-2.31.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.30.so",
+	    "usr/lib/libdl-2.31.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.30.so",
+	    "usr/lib/libm-2.31.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.30.so",
+	    "usr/lib/librt-2.31.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.30.so",
+	    "usr/lib/libpthread-2.31.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.30.so",
+	    "usr/lib/libresolv-2.31.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.30.so",
+	    "usr/lib/libnss_files-2.31.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.30.so",
+	    "usr/lib/libnss_dns-2.31.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-9.2.0-4-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-9.3.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
 	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
@@ -260,7 +260,7 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35-1-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35.1-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -271,26 +271,26 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.2.1-4-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libffi.so.6.0.4",
-	    "usr/lib/libffi.so.6",
+	"libffi-3.3-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libffi.so.7.1.0",
+	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.62.4-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6200.4",
+	"glib2-2.64.2-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6400.2",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6200.4",
+	    "usr/lib/libgio-2.0.so.0.6400.2",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6200.4",
+	    "usr/lib/libgmodule-2.0.so.0.6400.2",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6200.4",
+	    "usr/lib/libgobject-2.0.so.0.6400.2",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.38-1.1-${ARCH}.pkg.tar.xz" => [
+	"file-5.38-3-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
@@ -306,38 +306,38 @@ elsif ($ARCH eq "aarch64") {
 	);
 }
 else {
-    @INTERPRETER_NAMES = ("ld-linux-${ARCH}.so.1", "ld-2.30.so");
+    @INTERPRETER_NAMES = ("ld-linux-${ARCH}.so.1", "ld-2.31.so");
     $ARCH_REPO_CORE = "https://mex.mirror.pkgbuild.com/core/os/${ARCH}/";
     $ARCH_REPO_EXTRA = "https://mex.mirror.pkgbuild.com/extra/os/${ARCH}/";
     %SOLIBS = (
-	"glibc-2.30-3-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.30.so",
+	"glibc-2.31-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.31.so",
 	    "usr/lib/ld-linux-${LINUX_ARCH}.so.1",
-	    "usr/lib/libc-2.30.so",
+	    "usr/lib/libc-2.31.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.30.so",
+	    "usr/lib/libdl-2.31.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.30.so",
+	    "usr/lib/libm-2.31.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.30.so",
+	    "usr/lib/librt-2.31.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.30.so",
+	    "usr/lib/libpthread-2.31.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.30.so",
+	    "usr/lib/libresolv-2.31.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.30.so",
+	    "usr/lib/libnss_files-2.31.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.30.so",
+	    "usr/lib/libnss_dns-2.31.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-9.2.0-4-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-9.3.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
 	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
@@ -360,7 +360,7 @@ else {
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35-1-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35.1-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -371,26 +371,26 @@ else {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.2.1-4-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libffi.so.6.0.4",
-	    "usr/lib/libffi.so.6",
+	"libffi-3.3-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libffi.so.7.1.0",
+	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.62.4-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6200.4",
+	"glib2-2.64.2-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6400.2",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6200.4",
+	    "usr/lib/libgio-2.0.so.0.6400.2",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6200.4",
+	    "usr/lib/libgmodule-2.0.so.0.6400.2",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6200.4",
+	    "usr/lib/libgobject-2.0.so.0.6400.2",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.38-1-${ARCH}.pkg.tar.xz" => [
+	"file-5.38-3-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
