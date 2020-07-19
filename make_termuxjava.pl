@@ -23,8 +23,8 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-my $FULL_VERSION = "8u252-b09";
-#my $FULL_VERSION = "11.0.7+10";
+my $FULL_VERSION = "8u262-b10";
+#my $FULL_VERSION = "11.0.8+10";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
@@ -161,7 +161,7 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35.1-2-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35.2-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -177,26 +177,26 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.64.2-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6400.2",
+	"glib2-2.64.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6400.4",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6400.2",
+	    "usr/lib/libgio-2.0.so.0.6400.4",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6400.2",
+	    "usr/lib/libgmodule-2.0.so.0.6400.4",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6400.2",
+	    "usr/lib/libgobject-2.0.so.0.6400.4",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.38-3-${ARCH}.pkg.tar.xz" => [
+	"file-5.39-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.91+24+g75eadca-2-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.91+48+gfcb0420-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -260,7 +260,7 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35.1-2-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35.2-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -276,26 +276,26 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.64.2-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6400.2",
+	"glib2-2.64.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6400.4",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6400.2",
+	    "usr/lib/libgio-2.0.so.0.6400.4",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6400.2",
+	    "usr/lib/libgmodule-2.0.so.0.6400.4",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6400.2",
+	    "usr/lib/libgobject-2.0.so.0.6400.4",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.38-3-${ARCH}.pkg.tar.xz" => [
+	"file-5.39-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.91+24+g75eadca-2-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.91+48+gfcb0420-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -360,7 +360,7 @@ else {
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35.1-2-${ARCH}.pkg.tar.xz" => [
+	"libutil-linux-2.35.2-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -376,26 +376,26 @@ else {
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.64.2-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6400.2",
+	"glib2-2.64.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6400.4",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6400.2",
+	    "usr/lib/libgio-2.0.so.0.6400.4",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6400.2",
+	    "usr/lib/libgmodule-2.0.so.0.6400.4",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6400.2",
+	    "usr/lib/libgobject-2.0.so.0.6400.4",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.38-3-${ARCH}.pkg.tar.xz" => [
+	"file-5.39-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.91+24+g75eadca-2-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.91+48+gfcb0420-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
