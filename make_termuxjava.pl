@@ -23,8 +23,8 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-my $FULL_VERSION = "8u262-b10";
-#my $FULL_VERSION = "11.0.8+10";
+my $FULL_VERSION = "8u275-b01";
+#my $FULL_VERSION = "11.0.9+11.1";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
@@ -108,37 +108,37 @@ my (%SOLIBS, $ARCH_REPO_CORE, $ARCH_REPO_EXTRA, @INTERPRETER_NAMES);
 if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
     @INTERPRETER_NAMES = ("ld-linux-armhf.so.3",
 			  "ld-linux.so.3",
-			  "ld-2.31.so");
+			  "ld-2.32.so");
     $ARCH_REPO_CORE = "http://mirror.archlinuxarm.org/${ARCH}/core/";
     $ARCH_REPO_EXTRA = "http://mirror.archlinuxarm.org/${ARCH}/extra/";
     %SOLIBS = (
-	"glibc-2.31-2-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.31.so",
-	    "usr/lib/libc-2.31.so",
+	"glibc-2.32-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.32.so",
+	    "usr/lib/libc-2.32.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.31.so",
+	    "usr/lib/libdl-2.32.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.31.so",
+	    "usr/lib/libm-2.32.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.31.so",
+	    "usr/lib/librt-2.32.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.31.so",
+	    "usr/lib/libpthread-2.32.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.31.so",
+	    "usr/lib/libresolv-2.32.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.31.so",
+	    "usr/lib/libnss_files-2.32.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.31.so",
+	    "usr/lib/libnss_dns-2.32.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-9.3.0-1-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-10.2.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
 	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
@@ -151,17 +151,17 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libidn2.so.0",
 	    "usr/lib/libidn2.so",
 	],
-	"libunistring-0.9.10-2-${ARCH}.pkg.tar.xz" => [
+	"libunistring-0.9.10-3-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libunistring.so.2.1.0",
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.9-3-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.11",
+	"expat-2.2.10-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.6.12",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35.2-1-${ARCH}.pkg.tar.xz" => [
+	"util-linux-libs-2.36-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -172,7 +172,7 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.3-3-${ARCH}.pkg.tar.xz" => [
+	"libffi-3.3-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libffi.so.7.1.0",
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
@@ -207,37 +207,37 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	);
 }
 elsif ($ARCH eq "aarch64") {
-    @INTERPRETER_NAMES = ("ld-linux-aarch64.so.1", "ld-2.31.so");
+    @INTERPRETER_NAMES = ("ld-linux-aarch64.so.1", "ld-2.32.so");
     $ARCH_REPO_CORE = "http://mirror.archlinuxarm.org/${ARCH}/core/";
     $ARCH_REPO_EXTRA = "http://mirror.archlinuxarm.org/${ARCH}/extra/";
     %SOLIBS = (
-	"glibc-2.31-2-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.31.so",
-	    "usr/lib/libc-2.31.so",
+	"glibc-2.32-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.32.so",
+	    "usr/lib/libc-2.32.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.31.so",
+	    "usr/lib/libdl-2.32.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.31.so",
+	    "usr/lib/libm-2.32.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.31.so",
+	    "usr/lib/librt-2.32.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.31.so",
+	    "usr/lib/libpthread-2.32.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.31.so",
+	    "usr/lib/libresolv-2.32.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.31.so",
+	    "usr/lib/libnss_files-2.32.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.31.so",
+	    "usr/lib/libnss_dns-2.32.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-9.3.0-1-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-10.2.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
 	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
@@ -250,17 +250,17 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libidn2.so.0",
 	    "usr/lib/libidn2.so",
 	],
-	"libunistring-0.9.10-2-${ARCH}.pkg.tar.xz" => [
+	"libunistring-0.9.10-3-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libunistring.so.2.1.0",
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.9-3-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.11",
+	"expat-2.2.10-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.6.12",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35.2-1-${ARCH}.pkg.tar.xz" => [
+	"util-linux-libs-2.36-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -271,7 +271,7 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.3-3-${ARCH}.pkg.tar.xz" => [
+	"libffi-3.3-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libffi.so.7.1.0",
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
@@ -306,38 +306,38 @@ elsif ($ARCH eq "aarch64") {
 	);
 }
 else {
-    @INTERPRETER_NAMES = ("ld-linux-${ARCH}.so.1", "ld-2.31.so");
+    @INTERPRETER_NAMES = ("ld-linux-${ARCH}.so.1", "ld-2.32.so");
     $ARCH_REPO_CORE = "https://mex.mirror.pkgbuild.com/core/os/${ARCH}/";
     $ARCH_REPO_EXTRA = "https://mex.mirror.pkgbuild.com/extra/os/${ARCH}/";
     %SOLIBS = (
-	"glibc-2.31-2-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/ld-2.31.so",
+	"glibc-2.32-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/ld-2.32.so",
 	    "usr/lib/ld-linux-${LINUX_ARCH}.so.1",
-	    "usr/lib/libc-2.31.so",
+	    "usr/lib/libc-2.32.so",
 	    "usr/lib/libc.so.6",
-	    "usr/lib/libdl-2.31.so",
+	    "usr/lib/libdl-2.32.so",
 	    "usr/lib/libdl.so.2",
 	    "usr/lib/libdl.so",
-	    "usr/lib/libm-2.31.so",
+	    "usr/lib/libm-2.32.so",
 	    "usr/lib/libm.so.6",
 	    "usr/lib/libm.so",
-	    "usr/lib/librt-2.31.so",
+	    "usr/lib/librt-2.32.so",
 	    "usr/lib/librt.so.1",
 	    "usr/lib/librt.so",
-	    "usr/lib/libpthread-2.31.so",
+	    "usr/lib/libpthread-2.32.so",
 	    "usr/lib/libpthread.so.0",
 	    "usr/lib/libpthread.so",
-	    "usr/lib/libresolv-2.31.so",
+	    "usr/lib/libresolv-2.32.so",
 	    "usr/lib/libresolv.so.2",
 	    "usr/lib/libresolv.so",
-	    "usr/lib/libnss_files-2.31.so",
+	    "usr/lib/libnss_files-2.32.so",
 	    "usr/lib/libnss_files.so.2",
 	    "usr/lib/libnss_files.so",
-	    "usr/lib/libnss_dns-2.31.so",
+	    "usr/lib/libnss_dns-2.32.so",
 	    "usr/lib/libnss_dns.so.2",
 	    "usr/lib/libnss_dns.so",
 	],
-	"gcc-libs-9.3.0-1-${ARCH}.pkg.tar.xz" => [
+	"gcc-libs-10.2.0-1-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libgcc_s.so.1",
 	],
 	"zlib-1:1.2.11-4-${ARCH}.pkg.tar.xz" => [
@@ -350,17 +350,17 @@ else {
 	    "usr/lib/libidn2.so.0",
 	    "usr/lib/libidn2.so",
 	],
-	"libunistring-0.9.10-2-${ARCH}.pkg.tar.xz" => [
+	"libunistring-0.9.10-3-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libunistring.so.2.1.0",
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.9-3-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.11",
+	"expat-2.2.10-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.6.12",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
-	"libutil-linux-2.35.2-1-${ARCH}.pkg.tar.xz" => [
+	"util-linux-libs-2.36-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libuuid.so.1.3.0",
 	    "usr/lib/libuuid.so.1",
 	    "usr/lib/libuuid.so",
@@ -371,7 +371,7 @@ else {
 	    "usr/lib/libblkid.so.1",
 	    "usr/lib/libblkid.so",
 	],
-	"libffi-3.3-3-${ARCH}.pkg.tar.xz" => [
+	"libffi-3.3-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libffi.so.7.1.0",
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
