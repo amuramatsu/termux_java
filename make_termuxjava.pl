@@ -23,8 +23,8 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-my $FULL_VERSION = "8u282-b08";
-#my $FULL_VERSION = "11.0.10+9";
+#my $FULL_VERSION = "8u282-b08";
+my $FULL_VERSION = "11.0.10+9";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
@@ -106,7 +106,8 @@ print "Using $DISTRIBUTION $FULL_VERSION\n";
 
 ## arch linux settings
 
-my (%SOLIBS, $ARCH_REPO_CORE, $ARCH_REPO_EXTRA, @INTERPRETER_NAMES);
+my (%SOLIBS, %SOLIBS_JDK11,
+    $ARCH_REPO_CORE, $ARCH_REPO_EXTRA, @INTERPRETER_NAMES);
 if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
     @INTERPRETER_NAMES = ("ld-linux-armhf.so.3",
 			  "ld-linux.so.3",
@@ -207,6 +208,41 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	#    dbus, dbus-glib, systemd-libs, and many libs.
 	# "libgnomevfs-2.so.0" is also needed, but not exist on archlinux
 	);
+    
+    # libraries for JDK11
+    %SOLIBS_JDK11 = (
+	"bzip2-1.0.8-4-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libbz2.so.1.0.8",
+	    "usr/lib/libbz2.so.1.0",
+	    "usr/lib/libbz2.so.1",
+	    "usr/lib/libbz2.so",
+	],
+	"pcre-8.44-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libpcre.so.1.2.12",
+	    "usr/lib/libpcre.so.1",
+	    "usr/lib/libpcre.so",
+	],
+	"extra,freetype2-2.10.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libfreetype.so.6.17.4",
+	    "usr/lib/libfreetype.so.6",
+	    "usr/lib/libfreetype.so",
+	],
+	"extra,harfbuzz-2.7.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libharfbuzz.so.0.20704.0",
+	    "usr/lib/libharfbuzz.so.0",
+	    "usr/lib/libharfbuzz.so",
+	],
+	"extra,graphite-1:1.3.14-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libgraphite2.so.3.2.1",
+	    "usr/lib/libgraphite2.so.3",
+	    "usr/lib/libgraphite2.so",
+	],
+	"extra,libpng-1.6.37-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libpng16.so.16.37.0",
+	    "usr/lib/libpng16.so.16",
+	    "usr/lib/libpng16.so",
+	],
+	);
 }
 elsif ($ARCH eq "aarch64") {
     @INTERPRETER_NAMES = ("ld-linux-aarch64.so.1", "ld-2.32.so");
@@ -305,6 +341,41 @@ elsif ($ARCH eq "aarch64") {
 	# "libgconf-2.so.4" is needed for get proxy settings, but it pulls
 	#    dbus, dbus-glib, systemd-libs, and many libs.
 	# "libgnomevfs-2.so.0" is also needed, but not exist on archlinux
+	);
+    
+    # libraries for JDK11
+    %SOLIBS_JDK11 = (
+	"bzip2-1.0.8-4-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libbz2.so.1.0.8",
+	    "usr/lib/libbz2.so.1.0",
+	    "usr/lib/libbz2.so.1",
+	    "usr/lib/libbz2.so",
+	],
+	"pcre-8.44-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libpcre.so.1.2.12",
+	    "usr/lib/libpcre.so.1",
+	    "usr/lib/libpcre.so",
+	],
+	"extra,freetype2-2.10.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libfreetype.so.6.17.4",
+	    "usr/lib/libfreetype.so.6",
+	    "usr/lib/libfreetype.so",
+	],
+	"extra,harfbuzz-2.7.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libharfbuzz.so.0.20704.0",
+	    "usr/lib/libharfbuzz.so.0",
+	    "usr/lib/libharfbuzz.so",
+	],
+	"extra,graphite-1:1.3.14-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libgraphite2.so.3.2.1",
+	    "usr/lib/libgraphite2.so.3",
+	    "usr/lib/libgraphite2.so",
+	],
+	"extra,libpng-1.6.37-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libpng16.so.16.37.0",
+	    "usr/lib/libpng16.so.16",
+	    "usr/lib/libpng16.so",
+	],
 	);
 }
 else {
@@ -406,6 +477,41 @@ else {
 	#    dbus, dbus-glib, systemd-libs, and many libs.
 	# "libgnomevfs-2.so.0" is also needed, but not exist on archlinux
 	);
+    
+    # libraries for JDK11
+    %SOLIBS_JDK11 = (
+	"bzip2-1.0.8-4-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libbz2.so.1.0.8",
+	    "usr/lib/libbz2.so.1.0",
+	    "usr/lib/libbz2.so.1",
+	    "usr/lib/libbz2.so",
+	],
+	"pcre-8.44-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libpcre.so.1.2.12",
+	    "usr/lib/libpcre.so.1",
+	    "usr/lib/libpcre.so",
+	],
+	"extra,freetype2-2.10.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libfreetype.so.6.17.4",
+	    "usr/lib/libfreetype.so.6",
+	    "usr/lib/libfreetype.so",
+	],
+	"extra,harfbuzz-2.7.4-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libharfbuzz.so.0.20704.0",
+	    "usr/lib/libharfbuzz.so.0",
+	    "usr/lib/libharfbuzz.so",
+	],
+	"extra,graphite-1:1.3.14-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libgraphite2.so.3.2.1",
+	    "usr/lib/libgraphite2.so.3",
+	    "usr/lib/libgraphite2.so",
+	],
+	"extra,libpng-1.6.37-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libpng16.so.16.37.0",
+	    "usr/lib/libpng16.so.16",
+	    "usr/lib/libpng16.so",
+	],
+	);
 }
 
 my $WORK = "./work";
@@ -488,6 +594,8 @@ else {
         or die "JDK stracture is wrong";
 
     unlink "${WORK}/${DESTDIR}/lib/src.zip";
+
+    %SOLIBS = (%SOLIBS, %SOLIBS_JDK11);
 }
 rmtree "${WORK}/${DESTDIR}/demo";
 print " DONE\n";
