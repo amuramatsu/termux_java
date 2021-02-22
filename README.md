@@ -38,16 +38,16 @@ $ ./make_termuxjava.pl [-a arch] [-d distribution] [-v version]
 
 * **arch** is supported only `aarch64` (default), `armv7` and `armv6`.
 
-* **distribution** is selected form adopt (AdoptOpenJDK) or
+* **distribution** is selected from adopt (AdoptOpenJDK) or
   liberica (LibericaJDK). AdoptOpenJDK is recommended.
   
-* **version** is version of JDK. I tested only 8u242-b08.
+* **version** is version of JDK. I tested only 8LTE and 11LTE
 
 You get `termuxjava-jdk?-{version}-{distribution}-{arch}.tar.gz.
 This archive contains install script and Java system. Copy the
 archive to android-termux and install.
 
-## What doing this builder
+## What is doing in this script.
 
 1. Download OpenJDK from [AdoptOpenJDK](https://adoptopenjdk.net)
    or [LibericaJDK](https://bell-sw.com/java)
@@ -64,7 +64,7 @@ archive to android-termux and install.
 
 ### Build
 
-* NetBSD 8,1-STABLE (amd64)
+* NetBSD 9.1-STABLE (amd64)
 
 ### JDK Distribution
 
@@ -75,15 +75,15 @@ archive to android-termux and install.
 
 ### Running environment
 
-* termux 0.88 on [Planet Computers](https://www.www3.planetcom.co.uk)
+* termux 0.108 on [Planet Computers](https://www.www3.planetcom.co.uk)
   Cosmo Communicator (Android 9, aarch64)
 
 ### Tested Java applications
 
-* [PlantUML](http://plantuml.com) 2019.12 (AdoptOpenJDK 8 only)
+* [PlantUML](http://plantuml.com) 2021.1 (AdoptOpenJDK 8/11 only)
 * [pdftk-java](https://gitlab.com/pdftk-java/pdftk)
-* [sbt](https://www.scala-sbt.org) 1.3.8
-* [Gradle](https://gradle.org) 6.2.1
+* [sbt](https://www.scala-sbt.org) 1.4.5
+* [Gradle](https://gradle.org) 6.8.1
 
 ## Acknoledgements
 
