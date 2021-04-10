@@ -2,6 +2,7 @@
 JVMDIR=$PREFIX/share/@DESTDIR@
 exec proot -b "${PREFIX}/etc:/etc" -b "${JVMDIR}/solib:/usr/lib/tls" \
     env LD_PRELOAD= "${JVMDIR}/bin/${0##*/}" \
+    -Dfile.encoding=utf-8 \
     -Djava.awt.headless=true \
     "-Djava.io.tmpdir=${PREFIX}/tmp" \
     "-Duser.home=${HOME}" \
