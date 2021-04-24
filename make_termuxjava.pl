@@ -23,8 +23,8 @@ use Getopt::Long qw(:config posix_default no_ignore_case gnu_compat);
 
 my $CURL_OPTS = '';
 my $ARCH = "aarch64";
-#my $FULL_VERSION = "8u282-b08";
-my $FULL_VERSION = "11.0.10+9";
+#my $FULL_VERSION = "8u292-b10";
+my $FULL_VERSION = "11.0.11+9";
 my $DISTRIBUTION = "adopt";
 GetOptions(
     "curl-opts=s" => \$CURL_OPTS,
@@ -87,7 +87,7 @@ elsif ($DISTRIBUTION =~ /^adopt\s?(openjdk)?$/i) {
     $DISTRIBUTION = "AdoptOpenJDK";
     my $archive_version = $FULL_VERSION;
     my $nametype = ($MAJOR_VERSION == 8 &&
-		    ($PATCH_VERSION == 242 || $PATCH_VERSION >= 282)) ? 1 : 0;
+		    ($PATCH_VERSION == 242 || $PATCH_VERSION == 282)) ? 1 : 0;
     $archive_version =~ s/-//g if $nametype == 0;
     $archive_version = "jdk${archive_version}" if $nametype == 1;
     $archive_version =~ s/\+/_/g;
@@ -159,8 +159,8 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.10-2-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.12",
+	"expat-2.3.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.7.0",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
@@ -180,26 +180,26 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.66.7-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6600.7",
+	"glib2-2.68.1-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6800.1",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6600.7",
+	    "usr/lib/libgio-2.0.so.0.6800.1",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6600.7",
+	    "usr/lib/libgmodule-2.0.so.0.6800.1",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6600.7",
+	    "usr/lib/libgobject-2.0.so.0.6800.1",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.39-1-${ARCH}.pkg.tar.xz" => [
+	"file-5.40-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.91+48+gfcb0420-2-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.93-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -227,8 +227,8 @@ if ($ARCH eq "armv6h" || $ARCH eq "armv7h") {
 	    "usr/lib/libfreetype.so.6",
 	    "usr/lib/libfreetype.so",
 	],
-	"extra,harfbuzz-2.7.4-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libharfbuzz.so.0.20704.0",
+	"extra,harfbuzz-2.8.0-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libharfbuzz.so.0.20800.0",
 	    "usr/lib/libharfbuzz.so.0",
 	    "usr/lib/libharfbuzz.so",
 	],
@@ -293,8 +293,8 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.10-2-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.12",
+	"expat-2.3.0-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.7.0",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
@@ -314,26 +314,26 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.66.7-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6600.7",
+	"glib2-2.68.1-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6800.1",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6600.7",
+	    "usr/lib/libgio-2.0.so.0.6800.1",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6600.7",
+	    "usr/lib/libgmodule-2.0.so.0.6800.1",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6600.7",
+	    "usr/lib/libgobject-2.0.so.0.6800.1",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
-	"file-5.39-1-${ARCH}.pkg.tar.xz" => [
+	"file-5.40-2-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libmagic.so.1.0.0",
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.91+48+gfcb0420-2-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.93-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -361,8 +361,8 @@ elsif ($ARCH eq "aarch64") {
 	    "usr/lib/libfreetype.so.6",
 	    "usr/lib/libfreetype.so",
 	],
-	"extra,harfbuzz-2.7.4-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libharfbuzz.so.0.20704.0",
+	"extra,harfbuzz-2.8.0-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libharfbuzz.so.0.20800.0",
 	    "usr/lib/libharfbuzz.so.0",
 	    "usr/lib/libharfbuzz.so",
 	],
@@ -428,8 +428,8 @@ else {
 	    "usr/lib/libunistring.so.2",
 	    "usr/lib/libunistring.so",
 	],
-	"expat-2.2.10-2-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libexpat.so.1.6.12",
+	"expat-2.3.0-2-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libexpat.so.1.7.0",
 	    "usr/lib/libexpat.so.1",
 	    "usr/lib/libexpat.so",
 	],
@@ -449,17 +449,17 @@ else {
 	    "usr/lib/libffi.so.7",
 	    "usr/lib/libffi.so",
 	],
-	"glib2-2.66.7-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libglib-2.0.so.0.6600.7",
+	"glib2-2.68.1-1-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libglib-2.0.so.0.6800.1",
 	    "usr/lib/libglib-2.0.so.0",
 	    "usr/lib/libglib-2.0.so",
-	    "usr/lib/libgio-2.0.so.0.6600.7",
+	    "usr/lib/libgio-2.0.so.0.6800.1",
 	    "usr/lib/libgio-2.0.so.0",
 	    "usr/lib/libgio-2.0.so",
-	    "usr/lib/libgmodule-2.0.so.0.6600.7",
+	    "usr/lib/libgmodule-2.0.so.0.6800.1",
 	    "usr/lib/libgmodule-2.0.so.0",
 	    "usr/lib/libgmodule-2.0.so",
-	    "usr/lib/libgobject-2.0.so.0.6600.7",
+	    "usr/lib/libgobject-2.0.so.0.6800.1",
 	    "usr/lib/libgobject-2.0.so.0",
 	    "usr/lib/libgobject-2.0.so",
 	],
@@ -468,7 +468,7 @@ else {
 	    "usr/lib/libmagic.so.1",
 	    "usr/lib/libmagic.so",
 	],
-	"extra,fontconfig-2:2.13.91+48+gfcb0420-2-${ARCH}.pkg.tar.xz" => [
+	"extra,fontconfig-2:2.13.93-4-${ARCH}.pkg.tar.xz" => [
 	    "usr/lib/libfontconfig.so.1.12.0",
 	    "usr/lib/libfontconfig.so.1",
 	    "usr/lib/libfontconfig.so",
@@ -496,8 +496,8 @@ else {
 	    "usr/lib/libfreetype.so.6",
 	    "usr/lib/libfreetype.so",
 	],
-	"extra,harfbuzz-2.7.4-1-${ARCH}.pkg.tar.xz" => [
-	    "usr/lib/libharfbuzz.so.0.20704.0",
+	"extra,harfbuzz-2.8.0-3-${ARCH}.pkg.tar.xz" => [
+	    "usr/lib/libharfbuzz.so.0.20800.0",
 	    "usr/lib/libharfbuzz.so.0",
 	    "usr/lib/libharfbuzz.so",
 	],
