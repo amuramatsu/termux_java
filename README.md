@@ -1,5 +1,16 @@
 # This is another try to run JavaVM on termux
 
+## PROGRAMS IN THIS REPOSITORY ARE OBSOLATED
+
+OpenJDK 17 package is created as termux official package.
+If you want to use JavaVM on termux, please type
+
+``` sh
+pkg install openjdk-17
+```
+
+in termux.
+
 ## Information
 
 This repository have not JavaVM itself, but contains builder of
